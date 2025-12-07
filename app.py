@@ -103,19 +103,23 @@ st.markdown("""
         box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
     }
     
-    /* Radio buttons */
-    div[role="radiogroup"] label {
+    /* Radio buttons - MUST override sidebar white color */
+    [data-testid="stSidebar"] div[role="radiogroup"] label {
         background: white;
         padding: 12px 20px;
         border-radius: 8px;
         margin: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         transition: all 0.2s ease;
-        color: #1e3c72 !important;
+        color: #10b981 !important;
     }
     
-    div[role="radiogroup"] label span {
-        color: #1e3c72 !important;
+    [data-testid="stSidebar"] div[role="radiogroup"] label span {
+        color: #10b981 !important;
+    }
+    
+    [data-testid="stSidebar"] div[role="radiogroup"] label p {
+        color: #10b981 !important;
     }
     
     div[role="radiogroup"] label:hover {
