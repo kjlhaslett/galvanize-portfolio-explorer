@@ -1,0 +1,11 @@
+company,sector,subsector,country,impact_lever,notes,funding_raised_m,employees,year_founded,estimated_annual_tco2e_avoided_k,scale_indicator,scale_value,investment_stage
+Fervo Energy,Energy,Geothermal,USA,Direct decarbonization,Next-gen geothermal baseload power developer,930,180,2017,500,MW capacity,400,Growth
+Watershed,Software,Carbon accounting,USA,Enabling decarbonization,Leading enterprise carbon management platform,210,450,2019,2500,Enterprise customers,500,Growth
+Alcemy,Industry,Cement decarbonization,Germany,Direct decarbonization,AI-powered cement production optimization,20,45,2018,240,Plants optimized,45,Early
+Regrow,Agriculture,Ag carbon MRV,USA,Direct decarbonization,Soil carbon measurement and verification platform,61,85,2016,350,Acres monitored,5000000,Growth
+Arable,Agriculture,Ag-sensing,USA,Enabling decarbonization,IoT sensors and analytics for precision agriculture,60,95,2014,180,Acres covered,250000,Growth
+Plotlogic,Industry,Mining optimization,Australia,Enabling decarbonization,Real-time ore sensing for mining efficiency,54,70,2018,420,Mining operations,12,Growth
+Pulsora,Software,ESG data,USA,Enabling decarbonization,Enterprise sustainability and ESG data platform,20,60,2020,150,Enterprise customers,80,Early
+The Routing Company,Transportation,Transit optimization,USA,Direct decarbonization,On-demand microtransit and routing software,21,55,2019,360,Annual riders,500000,Growth
+Worldly,Software,Supply chain sustainability,USA,Enabling decarbonization,Supply chain environmental impact data platform,59,110,2011,280,Supply chain nodes,15000,Growth
+Zhero,Energy,Clean energy infrastructure,USA,Direct decarbonization,Clean energy infrastructure development,65,90,2020,440,MW capacity,200,Mature
