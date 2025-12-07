@@ -111,6 +111,11 @@ st.markdown("""
         margin: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
         transition: all 0.2s ease;
+        color: #1e3c72 !important;
+    }
+    
+    div[role="radiogroup"] label span {
+        color: #1e3c72 !important;
     }
     
     div[role="radiogroup"] label:hover {
