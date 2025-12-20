@@ -448,6 +448,95 @@ if tab_choice == "📊 Real Portfolio":
         
         plt.tight_layout()
         st.pyplot(fig)
+        
+        # ADD FRAMEWORK METHODOLOGY SECTION
+        st.markdown("---")
+        st.markdown("### 📋 Impact Measurement Methodology")
+        
+        # Sector-specific methodology mapping
+        sector_methodologies = {
+            "Energy": {
+                "baseline": "Natural gas combined cycle (NGCC) at 0.45 kg CO2/kWh",
+                "framework": "GHG Protocol Scope 3, Category 11 (Use of Sold Products)",
+                "data_quality": "Tier 2 (Industry average capacity factors)",
+                "description": "Calculated avoided emissions from displaced fossil fuel generation"
+            },
+            "Agriculture": {
+                "baseline": "Conventional farming practices and supply chain emissions",
+                "framework": "GHG Protocol Scope 3, Categories 1 & 11",
+                "data_quality": "Tier 2 (Agricultural research data and IPCC factors)",
+                "description": "Measured reduction in agricultural emissions and improved soil carbon sequestration"
+            },
+            "Software": {
+                "baseline": "Manual processes and inefficient resource allocation",
+                "framework": "Indirect enablement - TCFD metrics for portfolio companies",
+                "data_quality": "Tier 3 (Modeled impact through customer base)",
+                "description": "Estimated emissions reductions enabled through customer optimization"
+            },
+            "Industry": {
+                "baseline": "Standard industrial processes and material production",
+                "framework": "GHG Protocol Scope 1 & 2 reduction potential",
+                "data_quality": "Tier 2 (Industry benchmarks and engineering estimates)",
+                "description": "Direct emissions reductions from process optimization"
+            },
+            "Transportation": {
+                "baseline": "Conventional transportation modes and logistics",
+                "framework": "GHG Protocol Scope 3, Category 4 (Upstream Transportation)",
+                "data_quality": "Tier 2 (Transportation emission factors)",
+                "description": "Avoided emissions from optimized routing and modal shifts"
+            }
+        }
+        
+        methodology = sector_methodologies.get(company_data['sector'], {
+            "baseline": "Sector-specific conventional practices",
+            "framework": "GHG Protocol Scope 3",
+            "data_quality": "Tier 2 (Industry averages)",
+            "description": "Impact calculated using sector-specific methodologies"
+        })
+        
+        # Create a nice info box with the methodology
+        with st.expander("🔍 Click to view detailed impact calculation methodology", expanded=False):
+            col1, col2 = st.columns(2)
+            
+            with col1:
+                st.markdown("**Sector-Specific Methodology**")
+                st.markdown(f"**Sector:** {company_data['sector']}")
+                st.markdown(f"**Subsector:** {company_data['subsector']}")
+                st.markdown(f"**Baseline Comparison:** {methodology['baseline']}")
+                st.markdown(f"**Framework Applied:** {methodology['framework']}")
+                st.markdown(f"**Data Quality Tier:** {methodology['data_quality']}")
+                st.markdown(f"**Approach:** {methodology['description']}")
+            
+            with col2:
+                st.markdown("**Framework Alignment**")
+                
+                st.markdown("**TCFD Alignment:**")
+                st.markdown("- ✅ Transition opportunity assessment (low-carbon solutions)")
+                st.markdown("- ✅ Market opportunity sizing in climate transition")
+                st.markdown("- ✅ Technology readiness and scalability metrics")
+                
+                st.markdown("")
+                st.markdown("**SFDR Alignment:**")
+                st.markdown("- ✅ PAI 4: Exposure to fossil fuel sector (inverse - enabling transition)")
+                st.markdown("- ✅ PAI 13: Governance and impact measurement practices")
+                st.markdown("- ✅ Sustainable investment contribution (Article 9 alignment)")
+            
+            st.markdown("---")
+            st.markdown("**Industry Standards Applied:**")
+            
+            col1, col2, col3, col4 = st.columns(4)
+            with col1:
+                st.markdown("**GHG Protocol**")
+                st.caption("Scope 3 Category 11 for avoided emissions calculations")
+            with col2:
+                st.markdown("**PCAF**")
+                st.caption("Portfolio-level carbon attribution methodology")
+            with col3:
+                st.markdown("**TCFD**")
+                st.caption("Climate risk assessment and opportunity metrics")
+            with col4:
+                st.markdown("**SFDR**")
+                st.caption("Principal Adverse Impact (PAI) indicators alignment")
 
 # ========================================
 # TAB 2: SANDBOX DEEP DIVE (UNCHANGED FROM V2)
