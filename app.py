@@ -13,109 +13,233 @@ st.set_page_config(
 # ---------- CUSTOM CSS FOR VISUAL POLISH ----------
 st.markdown("""
 <style>
-    /* Main app styling */
-    .main {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    /* Galvanize Brand Colors */
+    :root {
+        --galvanize-green: #10b981;
+        --galvanize-dark-green: #059669;
+        --galvanize-blue: #1e3a8a;
+        --galvanize-light-blue: #3b82f6;
+        --galvanize-gray: #64748b;
+        --galvanize-light-gray: #f1f5f9;
     }
     
-    /* Sidebar styling */
+    /* Main app styling with cleaner background */
+    .main {
+        background: #ffffff;
+        padding: 2rem;
+    }
+    
+    /* Sidebar styling with Galvanize brand colors */
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #1e3c72 0%, #2a5298 100%);
+        background: linear-gradient(180deg, #1e3a8a 0%, #1e40af 100%);
+        padding: 2rem 1rem;
     }
     
     [data-testid="stSidebar"] * {
         color: white !important;
     }
     
-    /* Card-like containers for metrics */
+    /* Enhanced metric cards with shadows */
     div[data-testid="stMetricValue"] {
-        font-size: 28px;
-        font-weight: 700;
-        color: #1e3c72;
+        font-size: 32px;
+        font-weight: 800;
+        color: #1e3a8a;
+        text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
     }
     
     div[data-testid="stMetricLabel"] {
-        font-size: 14px;
-        font-weight: 500;
-        color: #5a6c7d;
+        font-size: 13px;
+        font-weight: 600;
+        color: #64748b;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 0.8px;
+        margin-bottom: 4px;
     }
     
-    /* Rounded containers */
-    div.stMarkdown, div[data-testid="stHorizontalBlock"] {
+    /* Card-based sections with subtle shadows */
+    div[data-testid="stHorizontalBlock"] {
+        background: white;
+        padding: 1.5rem;
         border-radius: 12px;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+        margin-bottom: 1rem;
     }
     
-    /* Headers with better styling */
+    /* Enhanced headers with Galvanize green accent */
     h1 {
-        color: #1e3c72;
-        font-weight: 700;
-        padding-bottom: 10px;
-        border-bottom: 3px solid #4CAF50;
-        margin-bottom: 20px;
+        color: #1e3a8a;
+        font-weight: 800;
+        font-size: 2.5rem;
+        padding-bottom: 1rem;
+        border-bottom: 4px solid #10b981;
+        margin-bottom: 2rem;
+        letter-spacing: -0.5px;
     }
     
     h2 {
-        color: #2a5298;
-        font-weight: 600;
-        margin-top: 30px;
+        color: #1e40af;
+        font-weight: 700;
+        font-size: 1.75rem;
+        margin-top: 2.5rem;
+        margin-bottom: 1rem;
     }
     
     h3 {
-        color: #34495e;
-        font-weight: 600;
+        color: #334155;
+        font-weight: 700;
+        font-size: 1.35rem;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
     }
     
-    /* Info boxes with rounded edges and shadows */
+    h4 {
+        color: #475569;
+        font-weight: 600;
+        font-size: 1.1rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+        border-left: 3px solid #10b981;
+        padding-left: 12px;
+    }
+    
+    h5 {
+        color: #64748b;
+        font-weight: 600;
+        font-size: 1rem;
+        margin-top: 1rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    /* Info/success/warning boxes with Galvanize colors */
     .stAlert {
         border-radius: 12px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid #4CAF50;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        border-left: 5px solid #10b981;
+        padding: 1.25rem;
+        background: #f0fdf4;
     }
     
-    /* Selectbox and input styling */
+    div[data-baseweb="notification"][kind="info"] {
+        background: #eff6ff;
+        border-left: 5px solid #3b82f6;
+    }
+    
+    div[data-baseweb="notification"][kind="success"] {
+        background: #f0fdf4;
+        border-left: 5px solid #10b981;
+    }
+    
+    div[data-baseweb="notification"][kind="warning"] {
+        background: #fffbeb;
+        border-left: 5px solid #f59e0b;
+    }
+    
+    /* Enhanced selectbox and input styling */
     div[data-baseweb="select"] > div {
-        border-radius: 8px;
-        border: 2px solid #e0e0e0;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+    }
+    
+    div[data-baseweb="select"] > div:hover {
+        border-color: #10b981;
     }
     
     input {
-        border-radius: 8px !important;
-        border: 2px solid #e0e0e0 !important;
+        border-radius: 10px !important;
+        border: 2px solid #e2e8f0 !important;
+        transition: all 0.2s ease !important;
     }
     
-    /* Button styling */
+    input:focus {
+        border-color: #10b981 !important;
+        box-shadow: 0 0 0 3px rgba(16, 185, 129, 0.1) !important;
+    }
+    
+    /* Enhanced button styling with Galvanize green */
     .stButton > button {
-        border-radius: 8px;
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        border-radius: 10px;
+        background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         color: white;
-        font-weight: 600;
+        font-weight: 700;
         border: none;
-        padding: 10px 24px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        padding: 12px 28px;
+        box-shadow: 0 4px 12px rgba(16, 185, 129, 0.3);
         transition: all 0.3s ease;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        font-size: 0.9rem;
     }
     
     .stButton > button:hover {
         transform: translateY(-2px);
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        box-shadow: 0 6px 20px rgba(16, 185, 129, 0.4);
+        background: linear-gradient(135deg, #059669 0%, #047857 100%);
     }
     
-    /* Radio buttons - MUST override sidebar white color */
+    /* Radio buttons with Galvanize green accent */
     [data-testid="stSidebar"] div[role="radiogroup"] label {
         background: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        margin: 4px;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        padding: 14px 20px;
+        border-radius: 10px;
+        margin: 6px 0;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
         transition: all 0.2s ease;
-        color: #10b981 !important;
+        color: #1e3a8a !important;
+        border: 2px solid transparent;
+    }
+    
+    [data-testid="stSidebar"] div[role="radiogroup"] label:hover {
+        border-color: #10b981;
+        transform: translateX(4px);
     }
     
     [data-testid="stSidebar"] div[role="radiogroup"] label span {
-        color: #10b981 !important;
+        color: #1e3a8a !important;
+        font-weight: 600;
+    }
+    
+    /* Selected radio button */
+    [data-testid="stSidebar"] div[role="radiogroup"] label[data-baseweb="radio"] div[aria-checked="true"] {
+        background: #10b981 !important;
+    }
+    
+    /* Dataframe styling */
+    .dataframe {
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+    }
+    
+    /* Expander styling */
+    .streamlit-expanderHeader {
+        background: #f8fafc;
+        border-radius: 10px;
+        border: 2px solid #e2e8f0;
+        font-weight: 600;
+        color: #1e3a8a;
+        padding: 12px 16px;
+        transition: all 0.2s ease;
+    }
+    
+    .streamlit-expanderHeader:hover {
+        background: #f1f5f9;
+        border-color: #10b981;
+    }
+    
+    /* Section dividers */
+    hr {
+        border: none;
+        border-top: 2px solid #e2e8f0;
+        margin: 2.5rem 0;
+    }
+    
+    /* Plotly chart containers */
+    .js-plotly-plot {
+        border-radius: 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
     }
     
     [data-testid="stSidebar"] div[role="radiogroup"] label p {
@@ -187,6 +311,54 @@ st.markdown("""
         font-weight: 600;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
     }
+    
+    /* Professional header styling */
+    .portfolio-header {
+        background: linear-gradient(135deg, #1e3a8a 0%, #10b981 100%);
+        padding: 2rem;
+        border-radius: 16px;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 24px rgba(30, 58, 138, 0.2);
+    }
+    
+    .portfolio-header h1 {
+        color: white;
+        border: none;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .portfolio-header p {
+        color: rgba(255, 255, 255, 0.9);
+        font-size: 1.1rem;
+        margin-top: 0.5rem;
+    }
+    
+    /* Section cards */
+    .section-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border: 1px solid #e2e8f0;
+        margin-bottom: 2rem;
+    }
+    
+    /* Metric cards in a grid */
+    .metric-card {
+        background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border: 2px solid #e2e8f0;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+        transition: all 0.2s ease;
+    }
+    
+    .metric-card:hover {
+        border-color: #10b981;
+        box-shadow: 0 4px 16px rgba(16, 185, 129, 0.15);
+        transform: translateY(-2px);
+    }
 </style>
 """, unsafe_allow_html=True)
 
@@ -241,9 +413,14 @@ st.sidebar.caption(
 # TAB 1: REAL PORTFOLIO (ENHANCED WITH MORE METRICS)
 # ========================================
 if tab_choice == "📊 Real Portfolio":
-    st.title("📊 Galvanize Climate Portfolio Explorer")
-    st.markdown("### Real Portfolio Analysis with Impact Metrics")
-    st.markdown("*Data verified against public sources as of December 2024*")
+    # Professional header with Galvanize branding
+    st.markdown("""
+    <div class="portfolio-header">
+        <h1 style="margin: 0; padding: 0; border: none; color: white;">📊 Galvanize Climate Portfolio Explorer</h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.15rem; margin-top: 0.75rem; margin-bottom: 0.25rem; font-weight: 500;">Real Portfolio Analysis with Impact Measurement Methodology</p>
+        <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; margin: 0; font-style: italic;">Data verified against public sources | Framework-aligned impact quantification | December 2024</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Portfolio Summary Dashboard
     st.markdown("#### Portfolio Overview")
@@ -971,8 +1148,13 @@ if tab_choice == "📊 Real Portfolio":
 # TAB 2: SANDBOX DEEP DIVE (UNCHANGED FROM V2)
 # ========================================
 elif tab_choice == "🔬 Sandbox Deep Dive":
-    st.title("🔬 Sandbox Portfolio Deep Dive")
-    st.markdown("### Quantitative Financial Analysis (Synthetic Data)")
+    st.markdown("""
+    <div class="portfolio-header">
+        <h1 style="margin: 0; padding: 0; border: none; color: white;">🔬 Sandbox Portfolio Deep Dive</h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.15rem; margin-top: 0.75rem; margin-bottom: 0.25rem; font-weight: 500;">Quantitative Financial Analysis with Risk-Return Modeling</p>
+        <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; margin: 0; font-style: italic;">Synthetic financial data for analytical demonstration | IRR, MOIC, and impact efficiency metrics</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     # Add view selector
     view_mode = st.radio(
@@ -1283,8 +1465,13 @@ elif tab_choice == "🔬 Sandbox Deep Dive":
 # TAB 3: INVESTMENT THESIS (UNCHANGED FROM V2)
 # ========================================
 elif tab_choice == "💡 Investment Thesis":
-    st.title("💡 Investment Thesis Analysis")
-    st.markdown("### Strategic Alignment with Modern Climate Investing Trends")
+    st.markdown("""
+    <div class="portfolio-header">
+        <h1 style="margin: 0; padding: 0; border: none; color: white;">💡 Investment Thesis Analysis</h1>
+        <p style="color: rgba(255, 255, 255, 0.95); font-size: 1.15rem; margin-top: 0.75rem; margin-bottom: 0.25rem; font-weight: 500;">Strategic Alignment with Modern Climate Investing Trends</p>
+        <p style="color: rgba(255, 255, 255, 0.85); font-size: 0.95rem; margin: 0; font-style: italic;">Portfolio scoring against capital efficiency, data-driven measurement, and scalability criteria</p>
+    </div>
+    """, unsafe_allow_html=True)
     
     st.markdown("""
     This analysis evaluates Galvanize's portfolio against three key investment criteria that define 
