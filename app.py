@@ -138,7 +138,7 @@ p, div {
     font-family: var(--font-sans);
     font-size: 16px;
     font-weight: 400;
-    color: var(--gray-600);
+    color: var(--gray-500);
     line-height: 1.6;
 }
 
@@ -1245,49 +1245,53 @@ if tab_choice == "📊 Real Portfolio":
             "description": "Impact calculated using sector-specific methodologies"
         })
         
-        # Create a nice info box with the methodology
-        with st.expander("🔍 Click to view detailed impact calculation methodology", expanded=False):
-            col1, col2 = st.columns(2)
+        # PROMINENT METHODOLOGY SECTION - ALWAYS VISIBLE
+        st.markdown("""
+        <div class="section-card" style="background: #F0F9FF; border-left: 4px solid #2563EB; margin-top: 24px;">
+        </div>
+        """, unsafe_allow_html=True)
+        
+        col1, col2 = st.columns(2)
+        
+        with col1:
+            st.markdown("**Sector-Specific Methodology**")
+            st.markdown(f"**Sector:** {company_data['sector']}")
+            st.markdown(f"**Subsector:** {company_data['subsector']}")
+            st.markdown(f"**Baseline Comparison:** {methodology['baseline']}")
+            st.markdown(f"**Framework Applied:** {methodology['framework']}")
+            st.markdown(f"**Data Quality Tier:** {methodology['data_quality']}")
+            st.markdown(f"**Approach:** {methodology['description']}")
+        
+        with col2:
+            st.markdown("**Framework Alignment**")
             
-            with col1:
-                st.markdown("**Sector-Specific Methodology**")
-                st.markdown(f"**Sector:** {company_data['sector']}")
-                st.markdown(f"**Subsector:** {company_data['subsector']}")
-                st.markdown(f"**Baseline Comparison:** {methodology['baseline']}")
-                st.markdown(f"**Framework Applied:** {methodology['framework']}")
-                st.markdown(f"**Data Quality Tier:** {methodology['data_quality']}")
-                st.markdown(f"**Approach:** {methodology['description']}")
+            st.markdown("**TCFD Alignment:**")
+            st.markdown("- ✅ Transition opportunity assessment (low-carbon solutions)")
+            st.markdown("- ✅ Market opportunity sizing in climate transition")
+            st.markdown("- ✅ Technology readiness and scalability metrics")
             
-            with col2:
-                st.markdown("**Framework Alignment**")
-                
-                st.markdown("**TCFD Alignment:**")
-                st.markdown("- ✅ Transition opportunity assessment (low-carbon solutions)")
-                st.markdown("- ✅ Market opportunity sizing in climate transition")
-                st.markdown("- ✅ Technology readiness and scalability metrics")
-                
-                st.markdown("")
-                st.markdown("**SFDR Alignment:**")
-                st.markdown("- ✅ PAI 4: Exposure to fossil fuel sector (inverse - enabling transition)")
-                st.markdown("- ✅ PAI 13: Governance and impact measurement practices")
-                st.markdown("- ✅ Sustainable investment contribution (Article 9 alignment)")
-            
-            st.markdown("---")
-            st.markdown("**Industry Standards Applied:**")
-            
-            col1, col2, col3, col4 = st.columns(4)
-            with col1:
-                st.markdown("**GHG Protocol**")
-                st.caption("Scope 3 Category 11 for avoided emissions calculations")
-            with col2:
-                st.markdown("**PCAF**")
-                st.caption("Portfolio-level carbon attribution methodology")
-            with col3:
-                st.markdown("**TCFD**")
-                st.caption("Climate risk assessment and opportunity metrics")
-            with col4:
-                st.markdown("**SFDR**")
-                st.caption("Principal Adverse Impact (PAI) indicators alignment")
+            st.markdown("")
+            st.markdown("**SFDR Alignment:**")
+            st.markdown("- ✅ PAI 4: Exposure to fossil fuel sector (inverse - enabling transition)")
+            st.markdown("- ✅ PAI 13: Governance and impact measurement practices")
+            st.markdown("- ✅ Sustainable investment contribution (Article 9 alignment)")
+        
+        st.markdown("---")
+        st.markdown("**Industry Standards Applied:**")
+        
+        col1, col2, col3, col4 = st.columns(4)
+        with col1:
+            st.markdown("**GHG Protocol**")
+            st.caption("Scope 3 Category 11 for avoided emissions calculations")
+        with col2:
+            st.markdown("**PCAF**")
+            st.caption("Portfolio-level carbon attribution methodology")
+        with col3:
+            st.markdown("**TCFD**")
+            st.caption("Climate risk assessment and opportunity metrics")
+        with col4:
+            st.markdown("**SFDR**")
+            st.caption("Principal Adverse Impact (PAI) indicators alignment")
 
 # ========================================
 # TAB 2: SANDBOX DEEP DIVE (UNCHANGED FROM V2)
