@@ -126,24 +126,35 @@ section[data-testid="stSidebar"] {
     padding: var(--space-lg);
 }
 
-section[data-testid="stSidebar"] .stRadio > label {
-    background-color: var(--bg-secondary);
-    padding: var(--space-md);
-    border-radius: var(--radius-md);
-    margin-bottom: var(--space-sm);
-    border: 1px solid var(--border-light);
+/* Radio button container */
+section[data-testid="stSidebar"] .stRadio {
+    background-color: transparent;
+}
+
+/* Individual radio option */
+section[data-testid="stSidebar"] .stRadio > div[role="radiogroup"] > label {
+    background-color: transparent !important;
+    padding: var(--space-sm) 0;
+    margin-bottom: var(--space-xs);
+    border: none !important;
+    cursor: pointer;
     transition: all 0.2s ease;
 }
 
-section[data-testid="stSidebar"] .stRadio > label:hover {
-    background-color: var(--gray-100);
-    border-color: var(--primary-blue-light);
-    transform: translateY(-2px);
-    box-shadow: var(--shadow-md);
+section[data-testid="stSidebar"] .stRadio > div[role="radiogroup"] > label:hover {
+    background-color: var(--gray-50) !important;
+    border-radius: var(--radius-sm);
+    padding-left: var(--space-sm);
 }
 
+/* Radio button circle */
 section[data-testid="stSidebar"] .stRadio [data-baseweb="radio"] {
-    background-color: var(--primary-blue);
+    background-color: transparent !important;
+}
+
+/* Selected radio button */
+section[data-testid="stSidebar"] .stRadio input[type="radio"]:checked + div {
+    background-color: var(--primary-blue) !important;
 }
 
 /* Main Content Area */
