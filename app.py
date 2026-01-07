@@ -1228,6 +1228,9 @@ if tab_choice == "📊 Real Portfolio":
             st.markdown(f"**Framework Applied:** {methodology['framework']}")
             st.markdown(f"**Data Quality Tier:** {methodology['data_quality']}")
             st.markdown(f"**Approach:** {methodology['description']}")
+            st.markdown("")
+            st.markdown("**Equity & Just Transition Considerations:**")
+            st.markdown("Impact assessments consider distributional effects and stakeholder impacts. We evaluate who benefits from climate solutions, whether vulnerable populations are affected, and if the transition creates equitable opportunities (e.g., job creation in affected communities, access to clean energy benefits).")
         
         with col2:
             st.markdown("**Framework Alignment**")
@@ -1285,6 +1288,206 @@ if tab_choice == "📊 Real Portfolio":
             """, unsafe_allow_html=True)
         
         st.markdown("</div>", unsafe_allow_html=True)  # Close methodology-body
+        
+        # ADD DECISION MEMO SECTION
+        st.markdown("<div style='margin: 48px 0;'></div>", unsafe_allow_html=True)
+        st.markdown("---")
+        st.markdown("### 📝 Impact Assessment Memo")
+        st.markdown("*Pre-investment impact diligence summary*")
+        
+        # Generate decision memo based on company
+        decision_memos = {
+            "Fervo Energy": {
+                "problem": "Geothermal energy has historically been limited to specific geographic regions with shallow, high-temperature resources. Conventional geothermal provides only ~0.4% of U.S. electricity despite massive potential. Baseload clean energy is critical for grid decarbonization, but solar and wind are intermittent.",
+                "solution": "Fervo Energy uses advanced drilling techniques (from oil & gas) to access geothermal resources at greater depths and in more locations. This enables 24/7 clean baseload power that can replace fossil fuel generation.",
+                "counterfactual": "Without Fervo's technology, new electricity demand in their target markets would likely be met by natural gas combined cycle (NGCC) plants at 0.45 kg CO₂/kWh. Fervo's geothermal provides <0.05 kg CO₂/kWh.",
+                "additionality": "Fervo is pioneering a new category of 'next-generation geothermal' that wouldn't exist without their innovation. Their approach unlocks resources that were previously uneconomical, creating net-new clean energy capacity rather than displacing existing renewables.",
+                "impact_estimate": f"Based on current capacity of {company_data['scale_value']:,} {company_data['scale_indicator']}, Fervo avoids an estimated {company_data['estimated_annual_tco2e_avoided_k']:.0f}K tons CO₂e annually vs. natural gas baseline. At scale (target of 400 MW by 2028), this could reach 2.5M tons CO₂e avoided per year.",
+                "material_risks": "**Technical Risk:** Drilling success rate and reservoir performance. **Market Risk:** Competition from falling solar/wind + battery costs. **Regulatory Risk:** Permitting delays for geothermal projects. **Financial Risk:** High upfront capital requirements ($200M+ per project).",
+                "sensitivity": "Impact estimate is sensitive to: (1) Capacity factor assumptions (90% vs. 80% = ±11% impact), (2) Grid emission factor baseline (varies by region), (3) Attribution methodology (operational vs. contracted capacity).",
+                "recommendation": "**Strong Impact Case.** Fervo addresses a critical gap in the clean energy portfolio (24/7 baseload) with a scalable technology. Capital-intensive model requires patient capital, but impact potential is exceptional. The company demonstrates 60% higher impact per employee than industry average. Recommend investment with focus on project-level execution and offtake agreements."
+            },
+            "Pulsora": {
+                "problem": "Industrial facilities (manufacturing, data centers, etc.) face volatile energy costs and lack real-time optimization tools. Energy waste is common, and facilities struggle to integrate renewables and storage effectively. This results in both higher costs and higher emissions.",
+                "solution": "Pulsora provides AI-powered energy management software that optimizes industrial energy use in real-time, reducing waste and enabling better integration of renewables and battery storage.",
+                "counterfactual": "Without Pulsora, industrial facilities would continue using manual energy management or legacy systems, resulting in 10-20% higher energy consumption and continued reliance on grid power during peak (high-carbon) hours.",
+                "additionality": "Pulsora's software enables emissions reductions that wouldn't occur otherwise. Their AI-driven approach provides optimization beyond what facility managers could achieve manually, creating net-new efficiency gains.",
+                "impact_estimate": f"Current customer base enables an estimated {company_data['estimated_annual_tco2e_avoided_k']:.0f}K tons CO₂e avoided annually through energy optimization and renewable integration. Impact scales linearly with customer adoption.",
+                "material_risks": "**Adoption Risk:** Requires behavior change from facility managers. **Measurement Risk:** Impact attribution is indirect (enablement model). **Competition Risk:** Incumbent building management systems adding AI features. **Scalability Risk:** High-touch sales model may limit growth.",
+                "sensitivity": "Impact estimate is sensitive to: (1) Customer energy savings assumptions (15% vs. 10% = 50% impact difference), (2) Grid emission factors (varies by region and time), (3) Counterfactual baseline (what customers would do without Pulsora).",
+                "recommendation": "**Strong Impact and Financial Case.** Pulsora demonstrates exceptional performance with 28% IRR (56% above portfolio average) and 2x impact efficiency vs. portfolio. Software model provides high scalability with lower capital requirements than hardware. Impact measurement requires robust customer data collection and conservative attribution. Recommend investment with focus on measurement infrastructure and customer case studies."
+            }
+        }
+        
+        # Default memo for other companies
+        default_memo = {
+            "problem": f"{company_data['company']} addresses critical challenges in the {company_data['sector']} sector, where conventional approaches result in significant carbon emissions and inefficiencies.",
+            "solution": f"{company_data['notes']}",
+            "counterfactual": f"Without {company_data['company']}'s solution, the market would continue using conventional {company_data['sector'].lower()} approaches with higher emissions intensity.",
+            "additionality": f"{company_data['company']}'s approach creates net-new emissions reductions by enabling solutions that wouldn't exist otherwise in the market.",
+            "impact_estimate": f"Based on current operations, {company_data['company']} avoids an estimated {company_data['estimated_annual_tco2e_avoided_k']:.0f}K tons CO₂e annually. Impact scales with company growth and market adoption.",
+            "material_risks": f"**Market Risk:** Competition and technology adoption. **Technical Risk:** Execution and scalability. **Measurement Risk:** Impact attribution and data quality. **Financial Risk:** Capital requirements and path to profitability.",
+            "sensitivity": "Impact estimates are sensitive to baseline assumptions, attribution methodology, and data quality. Conservative assumptions applied where data is limited.",
+            "recommendation": f"**Impact Assessment:** {company_data['company']} demonstrates {'strong' if impact_per_funding > avg_impact_per_funding else 'solid'} impact potential in the {company_data['sector']} sector. {'Exceptional performance vs. portfolio benchmarks.' if impact_per_funding > avg_impact_per_funding * 1.2 else 'Performance in line with portfolio expectations.'} Recommend {'investment' if impact_per_funding > avg_impact_per_funding else 'further diligence'} with focus on impact measurement infrastructure and scalability."
+        }
+        
+        memo = decision_memos.get(company_data['company'], default_memo)
+        
+        st.markdown("""<div style='background-color: #F8F9FA; padding: 24px; border-radius: 8px; border-left: 4px solid #2563EB;'>""", unsafe_allow_html=True)
+        
+        st.markdown("**1. Problem Framing**")
+        st.markdown(memo["problem"])
+        st.markdown("")
+        
+        st.markdown("**2. Solution & Theory of Change**")
+        st.markdown(memo["solution"])
+        st.markdown("")
+        
+        st.markdown("**3. Counterfactual Analysis**")
+        st.markdown(memo["counterfactual"])
+        st.markdown("")
+        
+        st.markdown("**4. Additionality Assessment**")
+        st.markdown(memo["additionality"])
+        st.markdown("")
+        
+        st.markdown("**5. Impact Estimate**")
+        st.markdown(memo["impact_estimate"])
+        st.markdown("")
+        
+        st.markdown("**6. Material Risks**")
+        st.markdown(memo["material_risks"])
+        st.markdown("")
+        
+        st.markdown("**7. Sensitivity Analysis**")
+        st.markdown(memo["sensitivity"])
+        st.markdown("")
+        
+        st.markdown("**8. Investment Recommendation**")
+        st.markdown(memo["recommendation"])
+        
+        st.markdown("</div>", unsafe_allow_html=True)
+        
+        st.caption("*This assessment demonstrates the framework for pre-investment impact diligence, adapted from outcomes-based evaluation methodologies and aligned with GHG Protocol, PCAF, and TCFD guidance.*")
+    
+    # ADD METHODS & SOURCES SECTION AT END OF TAB
+    st.markdown("<div style='margin: 64px 0 32px 0;'></div>", unsafe_allow_html=True)
+    st.markdown("---")
+    
+    with st.expander("📖 Methods & Sources - Data Provenance and Assumptions"):
+        st.markdown("### Data Sources")
+        st.markdown("""
+        **Company Information:**
+        - Crunchbase (funding, founding year, employee count)
+        - Company websites and press releases
+        - LinkedIn company pages
+        - Public filings and announcements
+        
+        **Impact Data:**
+        - Company-reported impact metrics (where available)
+        - Industry research and sector reports
+        - Academic literature on climate solutions
+        - Regulatory filings and environmental assessments
+        """)
+        
+        st.markdown("### Emission Factors & Baselines")
+        st.markdown("""
+        **Energy Sector:**
+        - Natural gas combined cycle: 0.45 kg CO₂/kWh (EPA eGRID)
+        - Geothermal capacity factors: 90% (NREL)
+        - Grid emission factors: Regional averages (EPA, IEA)
+        
+        **Agriculture Sector:**
+        - Conventional farming emissions: IPCC guidelines
+        - Soil carbon sequestration rates: Agricultural research data
+        - Supply chain emissions: GHG Protocol Scope 3 factors
+        
+        **Software & Enablement:**
+        - Energy savings assumptions: 10-20% (industry benchmarks)
+        - Customer baseline emissions: Modeled from facility data
+        - Attribution: Conservative estimates based on customer case studies
+        
+        **Transportation:**
+        - Vehicle emission factors: EPA, CARB
+        - Modal shift assumptions: Transportation research
+        - Logistics optimization: Industry benchmarks
+        """)
+        
+        st.markdown("### Key Assumptions")
+        st.markdown("""
+        **Attribution:**
+        - Impact attributed to companies based on operational capacity or customer base
+        - For early-stage companies, projections based on contracted capacity
+        - Conservative assumptions applied where data is limited
+        
+        **Counterfactuals:**
+        - Baseline scenarios assume continuation of conventional practices
+        - Regional grid mixes used for electricity-related impacts
+        - Market-based counterfactuals for technology displacement
+        
+        **Time Horizons:**
+        - Annual impact reported for current year operations
+        - Lifetime impact not calculated (requires long-term projections)
+        - Cumulative impact tracked from company inception where data available
+        
+        **Data Quality:**
+        - **Tier 1:** Company-reported, verified data (highest quality)
+        - **Tier 2:** Industry averages and research-based estimates (medium quality)
+        - **Tier 3:** Modeled estimates with conservative assumptions (lower quality)
+        """)
+        
+        st.markdown("### Limitations & Uncertainties")
+        st.markdown("""
+        **Data Availability:**
+        - Private companies have limited public disclosure
+        - Impact data often not standardized or verified
+        - Historical data may be incomplete or estimated
+        
+        **Measurement Challenges:**
+        - Indirect impacts (enablement) are difficult to attribute precisely
+        - Counterfactual scenarios involve assumptions about what would have happened
+        - Scope 3 emissions have inherent uncertainty
+        
+        **Methodological Limitations:**
+        - Sector benchmarks are based on limited sample sizes
+        - Attribution methodologies vary by company type and stage
+        - Impact estimates are point-in-time and may change as companies scale
+        
+        **Conservative Approach:**
+        - When data is uncertain, conservative assumptions are applied
+        - Impact estimates represent reasonable lower bounds
+        - Sensitivity analysis conducted for key assumptions
+        """)
+        
+        st.markdown("### Frameworks & Standards Referenced")
+        st.markdown("""
+        - **GHG Protocol:** Corporate and Scope 3 accounting standards
+        - **PCAF:** Partnership for Carbon Accounting Financials (financed emissions)
+        - **TCFD:** Task Force on Climate-related Financial Disclosures
+        - **SFDR:** EU Sustainable Finance Disclosure Regulation (PAI indicators)
+        - **IPCC:** Intergovernmental Panel on Climate Change (emission factors)
+        - **EPA eGRID:** U.S. electricity grid emission factors
+        - **NREL:** National Renewable Energy Laboratory (technology data)
+        """)
+        
+        st.markdown("### Methodology Updates")
+        st.markdown("""
+        **Version:** 1.0 (January 2026)
+        
+        **Changelog:**
+        - Initial framework development with GHG Protocol, PCAF, TCFD, SFDR alignment
+        - Sector-specific methodologies for Energy, Agriculture, Software, Industry, Transportation
+        - Portfolio-level aggregation and Impact Materiality Matrix
+        - Sector benchmarking based on industry research
+        
+        **Future Enhancements:**
+        - Integration of company-reported data (when available)
+        - Expanded sector coverage and refined benchmarks
+        - Lifecycle assessment (LCA) integration for hardware companies
+        - Real-time data feeds from portfolio companies
+        """)
+        
+        st.caption("*This methodology is designed for demonstration and educational purposes. Production impact measurement systems would require direct company data collection, third-party verification, and continuous refinement based on emerging best practices.*")
 
 # ========================================
 # TAB 2: SANDBOX DEEP DIVE (UNCHANGED FROM V2)
